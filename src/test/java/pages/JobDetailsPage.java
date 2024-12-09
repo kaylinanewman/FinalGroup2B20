@@ -11,7 +11,7 @@ public class JobDetailsPage extends CommonMethods {
     @FindBy(xpath = "//a[text()='Will ms']")
     public WebElement nameField;
 
-    @FindBy(xpath ="//*[@id=\"sidenav\"]/li[6]/a")
+    @FindBy(xpath = "//*[@id=\"sidenav\"]/li[6]/a")
     public WebElement jobTab;
 
     @FindBy(xpath = "//input[@value='Edit']")
@@ -38,12 +38,10 @@ public class JobDetailsPage extends CommonMethods {
     @FindBy(id = "job_contract_end_date")
     public WebElement contractEndDateInput;
 
-    @FindBy(id="btnSave")
+    @FindBy(id = "btnSave")
     public WebElement saveButton;
 
-
-
-    public JobDetailsPage(){
+    public JobDetailsPage() {
         PageFactory.initElements(driver, this);
     }
 

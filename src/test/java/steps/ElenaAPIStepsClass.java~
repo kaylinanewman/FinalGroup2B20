@@ -1,0 +1,30 @@
+package steps;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import io.restassured.specification.RequestSpecification;
+import pages.APIStepsClassPage;
+
+public class ElenaAPIStepsClass {
+    @Given("a request is prepared for creating a user with name {string} and {string} and {string}")
+    public void a_request_is_prepared_for_creating_a_user_with_name_and_and(String string, String string2, String string3) {
+        // Use the prepareCreateUserRequest method from APIStepsClassPage
+        RequestSpecification request = new APIStepsClassPage().prepareCreateUserRequest(string, string2, string3);
+    }
+
+    @When("a POST call is made to create the user")
+    public void a_post_call_is_made_to_create_the_user() {
+
+    }
+
+    @Then("the status code  {string} for this request is verified")
+    public void the_status_code_for_this_request_is_verified(String string) {
+
+    }
+
+    @Then("the respond {string} for creating this user is stored and values are validated")
+    public void the_respond_for_creating_this_user_is_stored_and_values_are_validated(String string) {
+
+    }
+}

@@ -1,4 +1,3 @@
-
 package steps;
 
 
@@ -6,31 +5,38 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.LoginPage;
 import utils.CommonMethods;
-import utils.ConfigReader;
 
 import java.time.Duration;
 import java.util.Random;
 
-import static utils.CommonMethods.driver;
-
-
 
 public class CreateLoginSteps extends CommonMethods {
 
-    String usernameValue=generateRandomUsername();
+    String usernameValue = generateRandomUsername();
+
+    public static String generateRandomUsername() {
+        // Characters to choose from
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        int length = 8; // Length of the username
+        StringBuilder username = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(alphabet.length());
+            username.append(alphabet.charAt(index));
+        }
+
+        return username.toString();
+    }
 
     @When("I check the {string} checkbox")
-    public void i_check_the_checkbox(String string) {
+    public void i_check_the_checkbox() {
         WebElement checkbox = driver.findElement(By.id("chkLogin"));
         if (!checkbox.isSelected()) {
             checkbox.click();
@@ -56,7 +62,6 @@ public class CreateLoginSteps extends CommonMethods {
         assert passwordField.isEnabled() : "Password field is not enabled!";
         assert confirmPasswordField.isEnabled() : "Confirm Password field is not enabled!";
     }
-
 
     @Given("the login details fields are enabled")
     public void the_login_details_fields_are_enabled() {
@@ -86,7 +91,6 @@ public class CreateLoginSteps extends CommonMethods {
 
         System.out.println("Login details fields are enabled.");
     }
-
 
     @When("I enter {string} in the Username field")
     public void i_enter_in_the_Username_field(String usrname) {
@@ -122,16 +126,14 @@ public class CreateLoginSteps extends CommonMethods {
 
         // Retrieve the entered password
         String password = passwordField.getAttribute("SidraBilal$1");
-
         System.out.println("Password meets complexity requirements.");
     }
-
 
     @Then("I enter the password for reconfirm password")
     public void i_enter_the_password_for_reconfirm_password() {
         WebElement confirmPasswordField = driver.findElement(By.cssSelector("input[id='re_password']")); // Replace 'txtConfirmPassword' with the actual ID or CSS selector
 
-        // Enter the password into the confirm password field
+        // Enter the password into the confirmation password field
         String passwordToReconfirm = "SidraBilal$1"; // Replace with the actual password or retrieve it dynamically if needed
         confirmPasswordField.clear(); // Clear the field if it contains any pre-existing text
         confirmPasswordField.sendKeys(passwordToReconfirm);
@@ -145,7 +147,7 @@ public class CreateLoginSteps extends CommonMethods {
     @Then("the system should validate that the confirm password matches the password")
     public void the_system_should_validate_that_the_confirm_password_matches_the_password() {
         // Locate the password and confirm password fields
-        WebElement passwordField = driver.findElement(By.cssSelector("input[id='user_password']")); // Replace with the actual ID for the password field
+        WebElement passwordField = driver.findElement(By.cssSelector("input[id='user_password']")); // Replace it with the actual ID for the password field
         WebElement confirmPasswordField = driver.findElement(By.cssSelector("input[id='re_password']")); // Replace with the actual ID for the confirm password field
 
         // Retrieve the values from both fields
@@ -162,12 +164,10 @@ public class CreateLoginSteps extends CommonMethods {
         WebElement dropdownElement;
 
         // Locate the dropdown based on the name
-        switch (dropdownName.toLowerCase()) {
-            case "status":
-                dropdownElement = driver.findElement(By.id("status")); // Replace with correct locator
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid dropdown name: " + dropdownName);
+        if (dropdownName.equalsIgnoreCase("status")) {
+            dropdownElement = driver.findElement(By.id("status")); // Replace it with correct locator
+        } else {
+            throw new IllegalArgumentException("Invalid dropdown name: " + dropdownName);
         }
 
         // Wait for the dropdown to be clickable
@@ -199,9 +199,8 @@ public class CreateLoginSteps extends CommonMethods {
         String selectedStatus = dropdown.getFirstSelectedOption().getText();
 
         // Validate that the selected status matches the expected status
-        String expectedStatus = status;
-        if (!selectedStatus.equals(expectedStatus)) {
-            throw new AssertionError("Expected status: " + expectedStatus + " but found: " + selectedStatus);
+        if (!selectedStatus.equals(status)) {
+            throw new AssertionError("Expected status: " + status + " but found: " + selectedStatus);
         }
 
         // Log a success message
@@ -216,7 +215,6 @@ public class CreateLoginSteps extends CommonMethods {
     @When("I logs out of the website")
     public void i_logs_out_of_the_website() throws InterruptedException {
         Thread.sleep(2000);
-        getwait().until(ExpectedConditions.visibilityOf(dashboardPage.welcomeText));
         click(dashboardPage.welcomeText);
         click(dashboardPage.logoutOption);
     }
@@ -250,23 +248,6 @@ public class CreateLoginSteps extends CommonMethods {
         sendText(lastname, addEmployeePage.lastnameLocator);
     }
 
-
-    public static String generateRandomUsername() {
-        // Characters to choose from
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        int length = 8; // Length of the username
-        StringBuilder username = new StringBuilder();
-        Random random = new Random();
-
-        for (int i = 0; i < length; i++) {
-            int index = random.nextInt(alphabet.length());
-            username.append(alphabet.charAt(index));
-        }
-
-        return username.toString();
-    }
-
-
     @And("I enter in the Username field")
     public void iEnterInTheUsernameField() {
         WebElement username = driver.findElement(By.cssSelector("input[id='user_name']"));
@@ -280,6 +261,44 @@ public class CreateLoginSteps extends CommonMethods {
         click(addEmployeeOption);
     }
 
+    @When("I enter {string} in the {string} field")
+    public void iEnterInTheField(String arg0, String arg1) {
+
+    }
+
+    @Then("the username field should accept the entered value")
+    public void theUsernameFieldShouldAcceptTheEnteredValue() {
+
+    }
+
+    @And("the username should be validated for uniqueness")
+    public void theUsernameShouldBeValidatedForUniqueness() {
+
+    }
+
+    @And("{string} is entered in the {string} field")
+    public void isEnteredInTheField(String arg0, String arg1) {
+
+    }
+
+    @Given("all mandatory fields are filled in correctly")
+    public void allMandatoryFieldsAreFilledInCorrectly() {
+
+    }
+
+    @When("I click the {string} button")
+    public void iClickTheButton(String arg0) {
+
+    }
+
+    @Then("the system should save the login details")
+    public void theSystemShouldSaveTheLoginDetails() {
+
+    }
+
+    @And("the employee should be able to log in to the HRMS application using the created credentials")
+    public void theEmployeeShouldBeAbleToLogInToTheHRMSApplicationUsingTheCreatedCredentials() {
+    }
 }
 
 

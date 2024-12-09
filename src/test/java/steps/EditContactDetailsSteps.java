@@ -2,6 +2,7 @@
 package steps;
 
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -22,6 +23,17 @@ import java.time.Duration;
 
 
 public class EditContactDetailsSteps extends CommonMethods {
+    String addressStreet1;
+    String addressStreet2;
+    String city;
+    String state;
+    String zipCode;
+    String country;
+    String homePhone;
+    String mobilePhone;
+    String workPhone;
+    String workEmail;
+    String otherEmail;
 
 
     @Then("user clicks the Contact Details section")
@@ -32,90 +44,61 @@ public class EditContactDetailsSteps extends CommonMethods {
 
     @When("user clicks on edit button")
     public void user_clicks_on_edit_button() {
-      //  WebElement editButton= driver.findElement(By.xpath("//input[@value='Edit']"));
         click(contactDetailsPage.editButton);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-
-
-    @Then("user updates his common information with the following details: {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string}")
+    @And("user updates his contact information with the following details: {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string}")
     public void user_updates_his_common_information_with_the_following_details_and_and_and_and_and_and_and_and_and_and(
             String addressStreet1, String addressStreet2, String city, String state,
             String zipCode, String country, String homePhone, String mobilePhone,
-            String workPhone, String workEmail, String otherEmail) {
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        sendText(addressStreet1, wait.until(ExpectedConditions.elementToBeClickable(contactDetailsPage.contactStreet1Field)));
-        sendText(addressStreet2, wait.until(ExpectedConditions.elementToBeClickable(contactDetailsPage.contactStreet2Field)));
-        sendText(city, wait.until(ExpectedConditions.elementToBeClickable(contactDetailsPage.contactCityField)));
-
-        sendText(zipCode, wait.until(ExpectedConditions.elementToBeClickable(contactDetailsPage.contactZipCodeField)));
-
-        WebElement countryDropdown = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("contact_country")));
-        selectFromDropdown(countryDropdown, country);
+            String workPhone, String workEmail, String otherEmail) throws InterruptedException {
 
 
-        WebElement stateDropdown = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("contact_state"))); // adjust the locator as needed
-        selectFromDropdown(stateDropdown, state);
-
-
-        sendText(homePhone, wait.until(ExpectedConditions.elementToBeClickable(contactDetailsPage.contactHomeTelephoneField)));
-        sendText(mobilePhone, wait.until(ExpectedConditions.elementToBeClickable(contactDetailsPage.contactMobilePhoneField)));
-        sendText(workPhone, wait.until(ExpectedConditions.elementToBeClickable(contactDetailsPage.contactWorkTelephonePhoneField)));
-        sendText(workEmail, wait.until(ExpectedConditions.elementToBeClickable(contactDetailsPage.contactWorkEmailField)));
-        sendText(otherEmail, wait.until(ExpectedConditions.elementToBeClickable(contactDetailsPage.contactOtherEmailField)));
-
+        sendText(addressStreet1, contactDetailsPage.contactStreet1Field);
+        sendText(addressStreet2, contactDetailsPage.contactStreet2Field);
+        sendText( city,contactDetailsPage.contactCityField);
+        sendText(zipCode, contactDetailsPage.contactZipCodeField);
+        selectDropdownOption(contactDetailsPage.contactCountryField,country);
+        selectDropdownOption(contactDetailsPage.contactProvinceField,state);
+        sendText(homePhone,contactDetailsPage.contactHomeTelephoneField);
+        sendText(mobilePhone,contactDetailsPage.contactMobilePhoneField);
+        sendText(workPhone,contactDetailsPage.contactWorkTelephonePhoneField);
+        sendText(workEmail,contactDetailsPage.contactWorkEmailField);
+        sendText(otherEmail,contactDetailsPage.contactOtherEmailField);
 
         click(contactDetailsPage.saveButton);
-        }
+    }
+
+
+    @Then("the contact information should be updated successfully with the following details: {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string} and {string}")
+    public void the_contact_information_should_be_updated_successfully_with_the_following_details_and_and_and_and_and_and_and_and_and_and(String addressStreet1, String addressStreet2, String city, String state, String zipCode, String country, String homePhone, String mobilePhone, String workPhone, String workEmail, String otherEmail) {
+
+        addressStreet1= getAttribute(contactDetailsPage.contactStreet1Field, "value");
+        addressStreet2 = getAttribute(contactDetailsPage.contactStreet2Field, "value");
+        city = getAttribute(contactDetailsPage.contactCityField, "value");
+        state = getAttribute(contactDetailsPage.contactProvinceField, "value");
+        zipCode = getAttribute(contactDetailsPage.contactZipCodeField, "value");
+        country = getAttribute(contactDetailsPage.contactCountryField, "value");
+        homePhone = getAttribute(contactDetailsPage.contactHomeTelephoneField, "value");
+        mobilePhone = getAttribute(contactDetailsPage.contactMobilePhoneField, "value");
+        workPhone = getAttribute(contactDetailsPage.contactWorkTelephonePhoneField, "value");
+        workEmail = getAttribute(contactDetailsPage.contactWorkEmailField, "value");
+        otherEmail = getAttribute(contactDetailsPage.contactOtherEmailField, "value");
 
 
 
 
-
-    @Then("the contact information should be updated successfully")
-    public void the_contact_information_should_be_updated_successfully() {
-        String expectedStreet1 = "2630 Ocean Ave";
-        String expectedStreet2 = "Apt A4";
-        String expectedCity = "Brooklyn";
-        String expectedState = "NY";
-        String expectedZipCode = "11229";
-        String expectedCountry = "US";
-        String expectedHomeTelephone = "123-456-7890";
-        String expectedMobilePhone = "987-654-3210";
-        String expectedWorkTelephone = "456-789-0123";
-        String expectedWorkEmail = "nick1@gmail.com";
-        String expectedOtherEmail = "nick2@aol.com";
-
-        // Retrieve actual values directly from the WebElements
-        String actualStreet1 = contactDetailsPage.contactStreet1Field.getAttribute("value");
-        String actualStreet2 = contactDetailsPage.contactStreet2Field.getAttribute("value");
-        String actualCity = contactDetailsPage.contactCityField.getAttribute("value");
-        String actualState = contactDetailsPage.contactProvinceField.getAttribute("value");
-        String actualZipCode = contactDetailsPage.contactZipCodeField.getAttribute("value");
-        String actualCountry = contactDetailsPage.contactCountryField.getAttribute("value");
-        String actualHomeTelephone = contactDetailsPage.contactHomeTelephoneField.getAttribute("value");
-        String actualMobilePhone = contactDetailsPage.contactMobilePhoneField.getAttribute("value");
-        String actualWorkTelephone = contactDetailsPage.contactWorkTelephonePhoneField.getAttribute("value");
-        String actualWorkEmail = contactDetailsPage.contactWorkEmailField.getAttribute("value");
-        String actualOtherEmail = contactDetailsPage.contactOtherEmailField.getAttribute("value");
-
-
-        // Assert the values
-        Assert.assertEquals(expectedStreet1, actualStreet1);
-        Assert.assertEquals(expectedStreet2, actualStreet2);
-        Assert.assertEquals(expectedCity, actualCity);
-        Assert.assertEquals(expectedState, actualState);
-        Assert.assertEquals(expectedZipCode, actualZipCode);
-        Assert.assertEquals(expectedCountry, actualCountry);
-        Assert.assertEquals(expectedHomeTelephone, actualHomeTelephone);
-        Assert.assertEquals(expectedMobilePhone, actualMobilePhone);
-        Assert.assertEquals(expectedWorkTelephone, actualWorkTelephone);
-        Assert.assertEquals(expectedWorkEmail, actualWorkEmail);
-        Assert.assertEquals(expectedOtherEmail, actualOtherEmail);
+        Assert.assertEquals(addressStreet1, addressStreet1);
+        Assert.assertEquals(addressStreet2, addressStreet2);
+        Assert.assertEquals(city, city);
+        Assert.assertEquals(state,state);
+        Assert.assertEquals(zipCode,zipCode);
+        Assert.assertEquals(country,country);
+        Assert.assertEquals(homePhone,homePhone);
+        Assert.assertEquals(mobilePhone, mobilePhone);
+        Assert.assertEquals(workPhone, workPhone);
+        Assert.assertEquals(workEmail, workEmail);
+        Assert.assertEquals(otherEmail, otherEmail);
     }
 
 }
-

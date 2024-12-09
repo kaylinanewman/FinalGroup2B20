@@ -3,7 +3,6 @@ package steps;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.CommonMethods;
 
@@ -43,7 +42,7 @@ public class EditJobDetailsSteps extends CommonMethods {
     }
 
     @And("the admin user clicks the Save button")
-    public void the_admin_user_clicks_the_save_button(){
+    public void the_admin_user_clicks_the_save_button() {
         click(jobDetailsPage.saveButton);
     }
 

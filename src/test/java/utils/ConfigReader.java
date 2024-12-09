@@ -1,11 +1,8 @@
-
 package utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-import static utils.CommonMethods.driver;
 
 public class ConfigReader {
 
@@ -15,15 +12,15 @@ public class ConfigReader {
 
     public static String read(String key, String path) {
 
-                Properties properties = new Properties();
-                try (FileInputStream fis = new FileInputStream(path)) {
-                    properties.load(fis);
-                } catch (IOException ioException) {
+        Properties properties = new Properties();
+        try (FileInputStream fis = new FileInputStream(path)) {
+            properties.load(fis);
+        } catch (IOException ioException) {
 
-                    ioException.printStackTrace();
-                }
-                return properties.getProperty(key);
-            }
+            ioException.printStackTrace();
+        }
+        return properties.getProperty(key);
+    }
 
 
 }

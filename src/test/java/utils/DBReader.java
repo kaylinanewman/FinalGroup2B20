@@ -19,7 +19,7 @@ public class DBReader {
         try (Connection connection = DriverManager.getConnection(dbURL, userName, password);
              //goes to database and executes instructions
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query);
+             ResultSet resultSet = statement.executeQuery(query)
         ) {
             ResultSetMetaData rsm = resultSet.getMetaData();
 
@@ -34,6 +34,7 @@ public class DBReader {
                 tableData.add(rowMap);
             }
         } catch (SQLException sqlException) {
+            throw new RuntimeException(sqlException);
         }
 
         return tableData;

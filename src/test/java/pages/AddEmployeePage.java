@@ -1,7 +1,6 @@
 package pages;
 
 
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -28,6 +27,12 @@ public class AddEmployeePage extends CommonMethods {
 
     @FindBy(xpath = "//table[@id='resultTable']/tbody/tr/td[@class='left']/a")
     public WebElement searchResult;
+
+    @FindBy(id = "error")
+    public WebElement error;
+
+    @FindBy(id = "lastNameError")
+    public WebElement lastNameError;
 
     public AddEmployeePage() {
         PageFactory.initElements(driver, this);

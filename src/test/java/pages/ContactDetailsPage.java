@@ -16,13 +16,13 @@ public class ContactDetailsPage extends CommonMethods {
     @FindBy(id = "contact_city")
     public WebElement contactCityField;
 
-    @FindBy(id = "contact_province")
+    @FindBy(xpath = "//select[@id='contact_state']")
     public WebElement contactProvinceField;
 
     @FindBy(id = "contact_emp_zipcode")
     public WebElement contactZipCodeField;
 
-    @FindBy(id = "contact_country")
+    @FindBy(xpath = "//select[@id='contact_country']")
     public WebElement contactCountryField;
 
     @FindBy(id = "contact_emp_hm_telephone")
@@ -59,4 +59,3 @@ public class ContactDetailsPage extends CommonMethods {
 
 
 }
-

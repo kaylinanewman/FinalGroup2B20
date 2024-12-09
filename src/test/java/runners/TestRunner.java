@@ -1,4 +1,3 @@
-
 package runners;
 
 import io.cucumber.junit.Cucumber;
@@ -9,14 +8,15 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features/",
         glue = "steps",
-        dryRun = false,
-        tags = "@namesearch",
-        plugin = {"pretty", "html:target/cucumber-reports.html"}
-
-        //plugin = {"pretty", "html:target/cucumber.html", "json:target/cucumber.json",
-               // "rerun:target/failed.txt"}
+        //when it is true, it generates step def
+        //when it is false, it executes the code
+        dryRun = true,
+        tags = "@ElenaUserCreation",
+        plugin = {"pretty", "html:target/cucumber.html", "json:target/cucumber.json",
+                "rerun:target/failed.txt"}
 )
 
-public class TestRunner {
-}
 
+public class TestRunner {
+
+}

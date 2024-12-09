@@ -1,0 +1,15 @@
+
+userName=admin
+password=Hum@nhrm123
+url=http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login
+browser=Chrome
+
+MuserName=Rahim123
+Mpassword=Pass#@$0073
+BASE_URI=http://hrm.syntaxtechs.net/syntaxapi/api
+ENDPOINT=/generateToken.php
+dbURL=jdbc:mysql://3.239.253.255:3306/syntaxhrm_mysql
+dbUserName=syntax_hrm
+dbPassword=syntaxhrm123
+
+

@@ -1,4 +1,5 @@
 Feature: Authentication Token Generation
+
   @API_Authentication
   # Scenario for Valid Credentials
   Scenario Outline: Authentication token generation with valid credentials

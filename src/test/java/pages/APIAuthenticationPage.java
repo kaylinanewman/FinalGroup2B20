@@ -7,14 +7,7 @@ import utils.APIPayload;
 import static utils.APIConstants.BASE_URI;
 import static utils.APIConstants.GENERATE_TOKEN_ENDPOINT;
 
-public class APIAuthenticationPage {
-    private final String email;
-    private final String password;
-
-    public APIAuthenticationPage(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
+public record APIAuthenticationPage(String email, String password) {
 
     public Response requestAuthenticationToken(String email, String password) {
         APIPayload payload = new APIPayload(email, password);
@@ -29,15 +22,6 @@ public class APIAuthenticationPage {
         if (response == null) {
             throw new IllegalStateException("Response is null. Check the API request and endpoint.");
         }
-
         return response;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }

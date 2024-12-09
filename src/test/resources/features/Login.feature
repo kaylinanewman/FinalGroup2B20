@@ -1,26 +1,19 @@
-
 Feature: Login scenarios
 
-
-  ogin@l @smoke @regression @invalid
-  Scenario: admin login
-    #Given user is able to access HRMS application
-    When user enters admin username and admin password
-    And user clicks on login button
+  @logins
+  Scenario: Login with valid username and password
+    Given user is able to access HRMS application
+    When user enters valid Admin Username and Admin Password
+    And user clicks on Login button
     Then user is navigated to dashboard page
+    And user clicks on PIM option
+    And user clicks on Employee List
 
 
-  @invalid
-  Scenario: invalid admin login
-    When user enters invalid username and password
-    And user clicks on login button
-    Then user can see error message
 
-  @login
-  Scenario: Valid Admin Login
-    #Given user is able to access HRMS application
-    When user enters admin username and admin password
-    And user clicks on login button
-    Then user is navigated to dashboard page or landing page
+
+
+
+
 
 
