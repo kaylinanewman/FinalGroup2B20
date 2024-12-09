@@ -14,4 +14,4 @@ Feature: As an ESS user,I want to be able to edit my personal information within
     Then changes are verified through database
     Examples:
       | firstname | middlename | lastname     | gender   | nationality  | maritalstatus  |
-      |Laura      |   M        |   Taylor     | Female   |  Guatemalan  |  Married
+      |Laura      |   M        |   Taylor     | Female   |  Guatemalan  |  Married       |
