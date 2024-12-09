@@ -34,7 +34,7 @@ public class APIStepsClass {
 
     }
     @Given("a JWT bearer token is generated")
-    public void a_jwt_bearer_token_is_generated() {
+    public void aJWTBearerTokenIsGenerated() {
         response = apiPage.generateToken(apiPage.prepareTokenRequest());
         token = APIConstants.BEARER + response.jsonPath().getString(APIConstants.TOKEN_PATH);
         System.out.println(token);
@@ -145,4 +145,5 @@ public class APIStepsClass {
                         (firstname,lastname,middlename,
                                 gender,birthday,status,jobtitle));
     }
+
 }
